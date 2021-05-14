@@ -11,58 +11,76 @@ var app = http.createServer(function (request, response) {
 
   console.log(url.parse(_url, true)); // url에 어떤 것이 담겨 있는지 확인
   if (pathname === "/") {
-    // Home 화면
+    // Home 화면 = id 값이 없는 경우
     if (queryData.id === undefined) {
-      fs.readFile(`data/${queryData.id}`, "utf8", function (err, description) {
+      fs.readdir("./data", function (error, filelist) {
+        console.log(filelist);
         var title = "Welcome";
         var description = "Hello, Node.js";
+        /*
+        var list = `<ul>
+          <li><a href="/?id=HTML">HTML</a></li>
+          <li><a href="/?id=CSS">CSS</a></li>
+          <li><a href="/?id=JavaScript">JavaScript</a></li>
+        </ul>`
+        */
+        var list = "<ul>";
+        var i = 0;
+        while (i < filelist.length) {
+          list = list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`;
+          i = i + 1;
+        }
+        list = list + "</ul>";
         var template = `
-        <!doctype html>
-        <html>
-        <head>
-          <title>WEB1 - ${title}</title>
-          <meta charset="utf-8">
-        </head>
-        <body>
-          <h1><a href="/">WEB</a></h1>
-          <ul>
-            <li><a href="/?id=HTML">HTML</a></li>
-            <li><a href="/?id=CSS">CSS</a></li>
-            <li><a href="/?id=JavaScript">JavaScript</a></li>
-          </ul>
-          <h2>${title}</h2>
-          <p>${description}</p>
-        </body>
-        </html>
-        `;
+          <!doctype html>
+          <html>
+          <head>
+            <title>WEB1 - ${title}</title>
+            <meta charset="utf-8">
+          </head>
+          <body>
+            <h1><a href="/">WEB</a></h1>
+            ${list} 
+            <h2>${title}</h2>
+            <p>${description}</p>
+          </body>
+          </html>
+          `;
         response.writeHead(200);
         response.end(template);
       });
     } else {
-      // HTML, CSS, JavaScript 클릭하면
-      fs.readFile(`data/${queryData.id}`, "utf8", function (err, description) {
-        var title = queryData.id;
-        var template = `
-        <!doctype html>
-        <html>
-        <head>
-          <title>WEB1 - ${title}</title>
-          <meta charset="utf-8">
-        </head>
-        <body>
-          <h1><a href="/">WEB</a></h1>
-          <ul>
-            <li><a href="/?id=HTML">HTML</a></li>
-            <li><a href="/?id=CSS">CSS</a></li>
-            <li><a href="/?id=JavaScript">JavaScript</a></li>
-          </ul>
-          <h2>${title}</h2>
-          <p>${description}</p>
-        </body>
-        </html>
-        `;
-        response.writeHead(200);
-        response.end(template);
+      // id 값이 있는 경우
+      fs.readdir("./data", function (error, filelist) {
+        var title = "Welcome";
+        var description = "Hello, Node.js";
+        var list = "<ul>";
+        var i = 0;
+        while (i < filelist.length) {
+          list = list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`;
+          i = i + 1;
+        }
+        list = list + "</ul>";
+        fs.readFile(`data/${queryData.id}`, "utf8", function (err, description) {
+          var title = queryData.id;
+          var template = `
+          <!doctype html>
+          <html>
+          <head>
+            <title>WEB1 - ${title}</title>
+            <meta charset="utf-8">
+          </head>
+          <body>4
+            <h1><a href="/">WEB</a></h1>
+            ${list}
+            <h2>${title}</h2>
+            <p>${description}</p>
+          </body>
+          </html>
+          `;
+          response.writeHead(200);
+          response.end(template);
+        });
       });
     }
   } else {
