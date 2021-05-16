@@ -60,6 +60,7 @@ var app = http.createServer(function (request, response) {
       });
     }
   } else if (pathname === "/create") {
+    // create 페이지에서 UI 만들기
     fs.readdir("./data", function (error, filelist) {
       var title = "WEB - create";
       var list = templateList(filelist);
