@@ -4,33 +4,35 @@ var qs = require("querystring");
 var url = require("url"); // url이라는 모듈을 사용할 것이라고 node.js에게 알려줌
 // url => 모듈 url을 말함
 
-function templateHTML(title, list, body, control) {
-  return `
-  <!doctype html>
-  <html>
-  <head>
-    <title>WEB1 - ${title}</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <h1><a href="/">WEB</a></h1>
-    ${list}
-    ${control}
-    ${body}
-  </body>
-  </html>
-  `;
-}
-function templateList(filelist) {
-  var list = "<ul>";
-  var i = 0;
-  while (i < filelist.length) {
-    list = list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`;
-    i = i + 1;
-  }
-  list = list + "</ul>";
-  return list;
-}
+var template = {
+  html: function (title, list, body, control) {
+    return `
+    <!doctype html>
+    <html>
+    <head>
+      <title>WEB1 - ${title}</title>
+      <meta charset="utf-8">
+    </head>
+    <body>
+      <h1><a href="/">WEB</a></h1>
+      ${list}
+      ${control}
+      ${body}
+    </body>
+    </html>
+    `;
+  },
+  list: function (filelist) {
+    var list = "<ul>";
+    var i = 0;
+    while (i < filelist.length) {
+      list = list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`;
+      i = i + 1;
+    }
+    list = list + "</ul>";
+    return list;
+  },
+};
 
 var app = http.createServer(function (request, response) {
   var _url = request.url;
@@ -43,23 +45,23 @@ var app = http.createServer(function (request, response) {
       fs.readdir("./data", function (error, filelist) {
         var title = "Welcome";
         var description = "Hello, Node.js";
-        var list = templateList(filelist);
-        var template = templateHTML(
+        var list = template.list(filelist);
+        var html = template.html(
           title,
           list,
           `<h2>${title}</h2>${description}`,
           `<a href="/create">create</a>`
         ); // Home에서는 update 존재 안함
         response.writeHead(200);
-        response.end(template);
+        response.end(html);
       });
     } else {
       // query string 값 존재 = id 값 존재
       fs.readdir("./data", function (error, filelist) {
         fs.readFile(`data/${queryData.id}`, "utf8", function (err, description) {
           var title = queryData.id;
-          var list = templateList(filelist);
-          var template = templateHTML(
+          var list = template.list(filelist);
+          var template = template.html(
             title,
             list,
             `<h2>${title}</h2>${description}`,
@@ -78,8 +80,8 @@ var app = http.createServer(function (request, response) {
     // create 페이지에서 UI 만들기
     fs.readdir("./data", function (error, filelist) {
       var title = "WEB - create";
-      var list = templateList(filelist);
-      var template = templateHTML(
+      var list = template.list(filelist);
+      var html = template.html(
         title,
         list,
         `
@@ -96,7 +98,7 @@ var app = http.createServer(function (request, response) {
         ""
       );
       response.writeHead(200);
-      response.end(template);
+      response.end(html);
     });
   } else if (pathname === "/create_process") {
     var body = "";
@@ -123,8 +125,8 @@ var app = http.createServer(function (request, response) {
     fs.readdir("./data", function (error, filelist) {
       fs.readFile(`data/${queryData.id}`, "utf8", function (err, description) {
         var title = queryData.id;
-        var list = templateList(filelist);
-        var template = templateHTML(
+        var list = template.list(filelist);
+        var html = template.html(
           title,
           list,
           `
@@ -142,7 +144,7 @@ var app = http.createServer(function (request, response) {
           `<a href="/create">create</a> <a href="/update?id=${title}">update</a>`
         );
         response.writeHead(200);
-        response.end(template);
+        response.end(html);
       });
     });
   } else if (pathname === "/update_process") {
