@@ -1,9 +1,9 @@
-var http = require("http"); //require => 요구하다.
+var http = require("http");
 var fs = require("fs");
+var url = require("url");
 var qs = require("querystring");
-var url = require("url"); // url이라는 모듈을 사용할 것이라고 node.js에게 알려줌
-// url => 모듈 url을 말함
-var template = require("./lib/template");
+var template = require("./lib/template.js");
+var path = require("path");
 
 var app = http.createServer(function (request, response) {
   var _url = request.url;
@@ -17,7 +17,7 @@ var app = http.createServer(function (request, response) {
         var title = "Welcome";
         var description = "Hello, Node.js";
         var list = template.list(filelist);
-        var html = template.html(
+        var html = template.HTML(
           title,
           list,
           `<h2>${title}</h2>${description}`,
@@ -29,7 +29,8 @@ var app = http.createServer(function (request, response) {
     } else {
       // query string 값 존재 = id 값 존재
       fs.readdir("./data", function (error, filelist) {
-        fs.readFile(`data/${queryData.id}`, "utf8", function (err, description) {
+        var filteredId = path.parse(queryData.id).base;
+        fs.readFile(`data/${filteredId}`, "utf8", function (err, description) {
           var title = queryData.id;
           var list = template.list(filelist);
           var template = template.html(
@@ -94,7 +95,8 @@ var app = http.createServer(function (request, response) {
     });
   } else if (pathname === "/update") {
     fs.readdir("./data", function (error, filelist) {
-      fs.readFile(`data/${queryData.id}`, "utf8", function (err, description) {
+      var filteredId = path.parse(queryData.id).base;
+      fs.readFile(`data/${filteredId}`, "utf8", function (err, description) {
         var title = queryData.id;
         var list = template.list(filelist);
         var html = template.html(
@@ -147,7 +149,8 @@ var app = http.createServer(function (request, response) {
       var post = qs.parse(body);
       // id = 삭제할 파일 이름
       var id = post.id;
-      fs.unlink(`data/${id}`, function (error) {
+      var filteredId = path.parse(id).base;
+      fs.unlink(`data/${filteredId}`, function (error) {
         response.writeHead(302, { Location: `/` });
         response.end();
       });
