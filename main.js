@@ -3,7 +3,6 @@ var fs = require("fs");
 var qs = require("querystring");
 var url = require("url"); // url이라는 모듈을 사용할 것이라고 node.js에게 알려줌
 // url => 모듈 url을 말함
-
 var template = require("./lib/template");
 
 var app = http.createServer(function (request, response) {
