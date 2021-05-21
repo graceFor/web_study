@@ -74,15 +74,13 @@ var app = http.createServer(function (request, response) {
       });
     }
   } else if (pathname === "/create") {
-    // create 페이지에서 UI 만들기
-    fs.readdir("./data", function (error, filelist) {
-      var title = "WEB - create";
-      var list = template.list(filelist);
+    db.query(`select * from topic`, function (error, topics) {
+      var title = "Create";
+      var list = template.list(topics);
       var html = template.HTML(
         title,
         list,
-        `
-        <form action="create_process" method="post">
+        `<form action="create_process" method="post">
           <p><input type="text" name="title" placeholder="title"></p>
           <p>
             <textarea name="description" placeholder="description"></textarea>
@@ -90,9 +88,8 @@ var app = http.createServer(function (request, response) {
           <p>
             <input type="submit">
           </p>
-        </form>
-      `,
-        ""
+        </form>`,
+        ` <a href="/create">create</a> `
       );
       response.writeHead(200);
       response.end(html);
@@ -111,35 +108,48 @@ var app = http.createServer(function (request, response) {
       // 즉, end에 해당되는 callback이 실행됐을 때, 정보수신 끝났다고 생각하면 됨
       var post = qs.parse(body);
       console.log(post);
-      var title = post.title;
-      var description = post.description;
-      fs.writeFile(`data/${title}`, description, "utf8", function (err) {
-        response.writeHead(302, { Location: `/?id=${title}` });
-        response.end();
-      });
+      db.query(
+        `insert into topic (title, description, created, author_id) values (?, ?, Now(), ?);`,
+        [post.title, post.description, 1],
+        function (error, result) {
+          if (error) {
+            // 에러 생기면 에러 처리
+            throw error;
+          }
+          // 삽입한 행의 id 값을 알아내야 함
+          response.writeHead(302, { Location: `/?id=${result.insertId}` });
+          response.end();
+        }
+      );
     });
   } else if (pathname === "/update") {
-    fs.readdir("./data", function (error, filelist) {
-      var filteredId = path.parse(queryData.id).base;
-      fs.readFile(`data/${filteredId}`, "utf8", function (err, description) {
-        var title = queryData.id;
-        var list = template.list(filelist);
+    db.query(`SELECT * from topic`, function (error, topics) {
+      if (error) {
+        throw error;
+      }
+      db.query(`select * from topic where id =?`, [queryData.id], function (error2, topic) {
+        if (error2) {
+          throw error2;
+        }
+        // topic에 어떤 값이 들어오는지 확인하기
+        console.log(topic);
+        var list = template.list(topics);
         var html = template.HTML(
-          title,
+          topic[0].title,
           list,
           `
         <form action="/update_process" method="post">
-          <input type="hidden" name="id" value="${title}">
-          <p><input type="text" name="title" placeholder="title" value="${title}"></p>
+          <input type="hidden" name="id" value="${topic[0].id}">
+          <p><input type="text" name="title" placeholder="title" value="${topic[0].title}"></p>
           <p>
-            <textarea name="description" placeholder="description">${description}</textarea>
+            <textarea name="description" placeholder="description">${topic[0].description}</textarea>
           </p>
           <p>
             <input type="submit">
           </p>
         </form>
         `,
-          `<a href="/create">create</a> <a href="/update?id=${title}">update</a>`
+          `<a href="/create">create</a> <a href="/update?id=${topic[0].id}">update</a>`
         );
         response.writeHead(200);
         response.end(html);
@@ -152,18 +162,20 @@ var app = http.createServer(function (request, response) {
     });
     request.on("end", function () {
       var post = qs.parse(body);
-      // id = 기존의 파일 이름
-      var id = post.id;
-      // title = 바뀐 파일 이름
-      var title = post.title;
-      // description = 바뀐 파일 내용
-      var description = post.description;
-      fs.rename(`data/${id}`, `data/${title}`, function (error) {
-        fs.writeFile(`data/${title}`, description, "utf8", function (err) {
-          response.writeHead(302, { Location: `/?id=${title}` });
+
+      // post.title = 바뀐 데이터 이름, post.description = 바뀐 데이터 내용, post.id = 데이터 id
+
+      db.query(
+        `UPDATE topic SET title =?, description=?,  author_id=1 WHERE id=?`,
+        [post.title, post.description, 1, post.id],
+        function (error, result) {
+          if (error) {
+            throw error;
+          }
+          response.writeHead(302, { Location: `/?id=${post.id}` });
           response.end();
-        });
-      });
+        }
+      );
     });
   } else if (pathname === "/delete_process") {
     var body = "";
