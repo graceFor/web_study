@@ -184,10 +184,12 @@ var app = http.createServer(function (request, response) {
     });
     request.on("end", function () {
       var post = qs.parse(body);
-      // id = 삭제할 파일 이름
-      var id = post.id;
-      var filteredId = path.parse(id).base;
-      fs.unlink(`data/${filteredId}`, function (error) {
+      // id = 삭제할 데이터의 id
+
+      db.query(`delete from topic where id = ?`, [post.id], function (error, result) {
+        if (error) {
+          throw error;
+        }
         response.writeHead(302, { Location: `/` });
         response.end();
       });
