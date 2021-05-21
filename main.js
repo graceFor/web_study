@@ -5,7 +5,7 @@ var qs = require("querystring");
 var template = require("./lib/template.js");
 var path = require("path");
 var sanitizeHtml = require("sanitize-html");
-var mysql = requier("mysql2");
+var mysql = require("mysql2");
 
 // mysql 서버에 접속하기 위한 setting
 var db = mysql.createConnection({
@@ -23,15 +23,15 @@ db.connect();
 var app = http.createServer(function (request, response) {
   var _url = request.url;
   var queryData = url.parse(_url, true).query;
+  console.log(queryData);
   var pathname = url.parse(_url, true).pathname;
   console.log(pathname);
   if (pathname === "/") {
     if (queryData.id === undefined) {
-      // 메인 Home 즉, query string 값 존재하지 않을 때
-      fs.readdir("./data", function (error, filelist) {
+      db.query(`SELECT * from topic`, function (error, topics) {
         var title = "Welcome";
         var description = "Hello, Node.js";
-        var list = template.list(filelist);
+        var list = template.list(topics);
         var html = template.HTML(
           title,
           list,
@@ -43,25 +43,30 @@ var app = http.createServer(function (request, response) {
       });
     } else {
       // query string 값 존재 = id 값 존재
-      fs.readdir("./data", function (error, filelist) {
-        var filteredId = path.parse(queryData.id).base;
-        fs.readFile(`data/${filteredId}`, "utf8", function (err, description) {
-          var title = queryData.id;
-          var sanitizedTitle = sanitizeHtml(title);
-          var sanitizedDescription = sanitizeHtml(description, {
-            allowedTags: ["h1"],
-          });
-          var list = template.list(filelist);
+      db.query(`SELECT * from topic`, function (error, topics) {
+        if (error) {
+          throw error;
+        }
+        db.query(`select * from topic where id =?`, [queryData.id], function (error2, topic) {
+          if (error2) {
+            throw error2;
+          }
+          ``;
+          // topic에 어떤 값이 들어오는지 확인하기
+          console.log(topic);
+          var title = topic[0].title;
+          var description = topic[0].description;
+          var list = template.list(topics);
           var html = template.HTML(
-            sanitizedTitle,
+            title,
             list,
-            `<h2>${sanitizedTitle}</h2>${sanitizedDescription}`,
-            ` <a href="/create">create</a>
-              <a href="/update?id=${sanitizedTitle}">update</a>
-              <form action="delete_process" method="post">
-                <input type="hidden" name="id" value="${sanitizedTitle}">
-                <input type="submit" value="delete">
-              </form>`
+            `<h2>${title}</h2>${description}`,
+            `<a href="/create">create</a> 
+            <a href="/update?id=${queryData.id}">update</a>
+            <form action="delete_process" method="post">
+              <input type="hidden" name="id" value="${queryData.id}">
+              <input type="submit" value="delete">
+            </form>`
           );
           response.writeHead(200);
           response.end(html);
