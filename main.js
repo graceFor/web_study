@@ -34,20 +34,23 @@ var app = http.createServer(function (request, response) {
         fs.readFile(`data/${filteredId}`, "utf8", function (err, description) {
           var title = queryData.id;
           var sanitizedTitle = sanitizeHtml(title);
-          var sanitizedDescription = sanitizeHtml(description);
+          var sanitizedDescription = sanitizeHtml(description, {
+            allowedTags: ["h1"],
+          });
           var list = template.list(filelist);
-          var template = template.html(
-            title,
+          var html = template.HTML(
+            sanitizedTitle,
             list,
             `<h2>${sanitizedTitle}</h2>${sanitizedDescription}`,
-            `<a href="/create">create</a> 
-            <a href="/update?id=${sanitizedTitle}">update</a><form action="delete_process" method="post">
-            <input type="hidden" name="id" value="${sanitizedTitle}">
-            <input type="submit" value="delete">
-          </form>`
+            ` <a href="/create">create</a>
+              <a href="/update?id=${sanitizedTitle}">update</a>
+              <form action="delete_process" method="post">
+                <input type="hidden" name="id" value="${sanitizedTitle}">
+                <input type="submit" value="delete">
+              </form>`
           );
           response.writeHead(200);
-          response.end(template);
+          response.end(html);
         });
       });
     }
@@ -56,7 +59,7 @@ var app = http.createServer(function (request, response) {
     fs.readdir("./data", function (error, filelist) {
       var title = "WEB - create";
       var list = template.list(filelist);
-      var html = template.html(
+      var html = template.HTML(
         title,
         list,
         `
@@ -102,7 +105,7 @@ var app = http.createServer(function (request, response) {
       fs.readFile(`data/${filteredId}`, "utf8", function (err, description) {
         var title = queryData.id;
         var list = template.list(filelist);
-        var html = template.html(
+        var html = template.HTML(
           title,
           list,
           `
