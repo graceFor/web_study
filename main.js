@@ -3,11 +3,14 @@ var express = require("express");
 var fs = require("fs");
 var path = require("path");
 var sanitizeHtml = require("sanitize-html");
+var qs = require("querystring");
 var template = require("./lib/template.js");
 
 // express는 함수
 // express를 호출하면 app 변수 안에 Application 객체가 담김
 var express = require("express");
+const { response } = require("express");
+const { request } = require("http");
 var app = express();
 
 //route, routing
@@ -29,6 +32,7 @@ app.get("/", function (request, response) {
 });
 
 app.get("/page/:pageId", function (request, response) {
+  console.log(request.params); // http://localhost:3000/page/HTML => { pageId: 'HTML' }
   fs.readdir("./data", function (error, filelist) {
     var filteredId = path.parse(request.params.pageId).base;
     fs.readFile(`data/${filteredId}`, "utf8", function (err, description) {
@@ -50,6 +54,46 @@ app.get("/page/:pageId", function (request, response) {
           </form>`
       );
       response.send(html);
+    });
+  });
+});
+
+// create
+app.get("/create", (request, response) => {
+  fs.readdir("./data", function (error, filelist) {
+    var title = "WEB - create";
+    var list = template.list(filelist);
+    var html = template.HTML(
+      title,
+      list,
+      `
+      <form action="/create_process" method="post">
+        <p><input type="text" name="title" placeholder="title"></p>
+        <p>
+          <textarea name="description" placeholder="description"></textarea>
+        </p>
+        <p>
+          <input type="submit">
+        </p>
+      </form>
+    `,
+      ""
+    );
+    response.send(html);
+  });
+});
+app.post("/create_process", (request, response) => {
+  var body = "";
+  request.on("data", function (data) {
+    body = body + data;
+  });
+  request.on("end", function () {
+    var post = qs.parse(body);
+    var title = post.title;
+    var description = post.description;
+    fs.writeFile(`data/${title}`, description, "utf8", function (err) {
+      response.writeHead(302, { Location: `/?id=${title}` });
+      response.end();
     });
   });
 });
