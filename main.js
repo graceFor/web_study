@@ -1,17 +1,14 @@
 // 모듈인 express를 가져옴
 var express = require("express");
+var app = express();
 var fs = require("fs");
 var path = require("path");
 var sanitizeHtml = require("sanitize-html");
 var qs = require("querystring");
 var template = require("./lib/template.js");
+var bodyParser = require("body-parser");
 
-// express는 함수
-// express를 호출하면 app 변수 안에 Application 객체가 담김
-var express = require("express");
-const { response } = require("express");
-const { request } = require("http");
-var app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //route, routing
 // '/' 경로가 호출됐을 때, 즉 그 경로로 접속자가 들어왔을 때, 호출될 함수
@@ -83,7 +80,7 @@ app.get("/create", (request, response) => {
   });
 });
 app.post("/create_process", (request, response) => {
-  var body = "";
+  /*var body = "";
   request.on("data", function (data) {
     body = body + data;
   });
@@ -96,6 +93,14 @@ app.post("/create_process", (request, response) => {
       // response.end();
       response.redirect(`/?id=${title}`);
     });
+  });*/
+  var post = request.body;
+  console.log(post);
+  var title = post.title;
+  var description = post.description;
+  fs.writeFile(`data/${title}`, description, "utf8", function (err) {
+    response.writeHead(302, { Location: `/?id=${title}` });
+    response.end();
   });
 });
 
@@ -128,37 +133,23 @@ app.get("/update/:pageId", (request, response) => {
   });
 });
 app.post("/update_process", (request, response) => {
-  var body = "";
-  request.on("data", function (data) {
-    body = body + data;
-  });
-  request.on("end", function () {
-    var post = qs.parse(body);
-    var id = post.id;
-    var title = post.title;
-    var description = post.description;
-    fs.rename(`data/${id}`, `data/${title}`, function (error) {
-      fs.writeFile(`data/${title}`, description, "utf8", function (err) {
-        // response.writeHead(302, { Location: `/?id=${title}` });
-        // response.end();
-        response.redirect(`/?id=${title}`);
-      });
+  var post = request.body;
+  var id = post.id;
+  var title = post.title;
+  var description = post.description;
+  fs.rename(`data/${id}`, `data/${title}`, function (error) {
+    fs.writeFile(`data/${title}`, description, "utf8", function (err) {
+      response.redirect(`/?id=${title}`);
     });
   });
 });
 
 app.post("/delete_process", function (request, response) {
-  var body = "";
-  request.on("data", function (data) {
-    body = body + data;
-  });
-  request.on("end", function () {
-    var post = qs.parse(body);
-    var id = post.id;
-    var filteredId = path.parse(id).base;
-    fs.unlink(`data/${filteredId}`, function (error) {
-      response.redirect("/");
-    });
+  var post = request.body;
+  var id = post.id;
+  var filteredId = path.parse(id).base;
+  fs.unlink(`data/${filteredId}`, function (error) {
+    response.redirect("/");
   });
 });
 
