@@ -3,12 +3,13 @@ var express = require("express");
 var app = express();
 var fs = require("fs");
 var path = require("path");
-var compression = require("compression");
-var sanitizeHtml = require("sanitize-html");
 var qs = require("querystring");
-var template = require("./lib/template.js");
 var bodyParser = require("body-parser");
+var sanitizeHtml = require("sanitize-html");
+var compression = require("compression");
+var template = require("./lib/template.js");
 
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(compression());
 
@@ -31,7 +32,8 @@ app.get("/", function (request, response) {
   var html = template.HTML(
     title,
     list,
-    `<h2>${title}</h2>${description}`,
+    `<h2>${title}</h2>${description}
+    <img src="/images/hello.jpg"style="width:300px; display:block; margin-top:10px;"></img>`,
     `<a href="/create">create</a>`
   );
   response.send(html);
@@ -116,7 +118,7 @@ app.get("/update/:pageId", (request, response) => {
   var filteredId = path.parse(request.params.pageId).base;
   fs.readFile(`data/${filteredId}`, "utf8", function (err, description) {
     var title = request.params.pageId;
-    var list = template.list(request.list);
+    var list = template.list(filelist);
     var html = template.HTML(
       title,
       list,
