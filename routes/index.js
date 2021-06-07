@@ -15,7 +15,7 @@ router.get("/", function (request, response) {
     list,
     `<h2>${title}</h2>${description}
       <img src="/images/hello.jpg"style="width:300px; display:block; margin-top:10px;"></img>`,
-    `<a href="/create">create</a>`
+    `<a href="/topic/create">create</a>`
   );
   response.send(html);
   //});

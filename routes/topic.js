@@ -14,16 +14,16 @@ router.get("/create", function (request, response) {
     title,
     list,
     `
-      <form action="/topic/create_process" method="post">
-        <p><input type="text" name="title" placeholder="title"></p>
-        <p>
-          <textarea name="description" placeholder="description"></textarea>
-        </p>
-        <p>
-          <input type="submit">
-        </p>
-      </form>
-    `,
+    <form action="/topic/create_process" method="post">
+      <p><input type="text" name="title" placeholder="title"></p>
+      <p>
+        <textarea name="description" placeholder="description"></textarea>
+      </p>
+      <p>
+        <input type="submit">
+      </p>
+    </form>
+  `,
     ""
   );
   response.send(html);
@@ -105,9 +105,9 @@ router.get("/:pageId", function (request, response, next) {
         sanitizedTitle,
         list,
         `<h2>${sanitizedTitle}</h2>${sanitizedDescription}`,
-        ` <a href="/create">create</a>
-            <a href="/update/${sanitizedTitle}">update</a>
-            <form action="/delete_process" method="post">
+        ` <a href="/topic/create">create</a>
+            <a href="/topic/update/${sanitizedTitle}">update</a>
+            <form action="/topic/delete_process" method="post">
               <input type="hidden" name="id" value="${sanitizedTitle}">
               <input type="submit" value="delete">
             </form>`
