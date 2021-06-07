@@ -9,6 +9,7 @@ var sanitizeHtml = require("sanitize-html");
 var compression = require("compression");
 var template = require("./lib/template.js");
 var topicRouter = require("./routes/topic");
+var indexRouter = require("./routes/index");
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,26 +23,8 @@ app.get("*", function (request, response, next) {
   });
 });
 
+app.use("/", indexRouter);
 app.use("/topic", topicRouter);
-
-//route, routing
-// '/' 경로가 호출됐을 때, 즉 그 경로로 접속자가 들어왔을 때, 호출될 함수
-// app.get("/", (req, res) => res.send("/"));
-app.get("/", function (request, response) {
-  //fs.readdir("./data", function (error, filelist) {
-  var title = "Welcome";
-  var description = "Hello, Node.js";
-  var list = template.list(request.list);
-  var html = template.HTML(
-    title,
-    list,
-    `<h2>${title}</h2>${description}
-    <img src="/images/hello.jpg"style="width:300px; display:block; margin-top:10px;"></img>`,
-    `<a href="/create">create</a>`
-  );
-  response.send(html);
-  //});
-});
 
 app.use(function (req, res, next) {
   res.status(404).send("Sorry cant find that!");
