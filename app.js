@@ -15,7 +15,7 @@ var app = express();
 // CONNECT TO MONGODB SERVER
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("connected to mongodb"))
+  .then(() => console.log("success connected to mongodb"))
   .catch((e) => console.error(e));
 
 app.use(bodyParser.urlencoded({ extended: true }));
