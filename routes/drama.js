@@ -10,7 +10,9 @@ router.get("/", function (req, res, next) {
 });
 
 // Create
+// form 형식으로 send 버튼 누르면 post 방식으로 보냄
 router.get("/create", function (req, res) {});
+// create에서 보낸 데이터를 받아서 저장
 router.post("/create_process", function (req, res) {});
 // Update
 router.get("/update", function (req, res) {});
