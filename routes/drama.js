@@ -18,6 +18,6 @@ router.post("/create_process", function (req, res) {});
 router.get("/update", function (req, res) {});
 router.post("/update_process", function (req, res) {});
 // Delete
-router.ger("delete_process", function (req, res) {});
+router.get("delete_process", function (req, res) {});
 
 module.exports = router;
