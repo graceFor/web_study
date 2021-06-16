@@ -79,6 +79,7 @@ router.post("/update_process", function (request, response) {
 
 // delete
 router.post("/delete_process", function (request, response) {
+  console.log(request.body);
   var post = request.body;
   var id = post.id;
   var filteredId = path.parse(id).base;
@@ -116,5 +117,11 @@ router.get("/:pageId", function (request, response, next) {
     }
   });
 });
+
+// <form action="/drama/<%= drama._id %>?_method=delete" method="post" style="float:center-left; margin: 30px; margin-left: 30px; " >
+// <input type="hidden" name="imagePath" value="<%= drama.imagePath %>">
+
+// <input type="submit" value="delete">
+// </form>`
 
 module.exports = router;
