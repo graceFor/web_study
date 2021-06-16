@@ -7,7 +7,8 @@
     <%- include('./patials/nav.ejs') %> 
     <% if (drama !== null){
       for(var i = 0; i < drama.length; i++) { %>
-          <a href="/drama/<%= drama[i]._id%>"><h3><%= i+1 %> - <%=drama[i].title%></h3></a>
+        <img src=" <%= drama[i].imagePath%>"  width='30%' > 
+        <a href="/drama/<%= drama[i]._id%>"><h3><%= i+1 %> - <%=drama[i].title%></h3></a>
   <%  }} %>
    
   </body>
