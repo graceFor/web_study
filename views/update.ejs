@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <%- include('./patials/head.ejs') %> 
+    <link rel="stylesheet"  href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/bootstrap.min.css" />
+    
+  </head>
+  <body>
+    <h1>내용 Update</h1>
+    <form action="/drama/<%= drama._id %>?_method=put" method="post">
+        <p><input type="text" name="title" value="<%= drama.title %>" style = "width:170; height:30;" ></p>
+        <p>
+          <textarea name="description"  style = "width:60%; height:200px;"><%= drama.description %></textarea>
+        </p>
+        <p>
+          <input type="submit">
+        </p>
+    </form>     
+
+   
+  </body>
+</html>

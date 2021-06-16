@@ -42,6 +42,20 @@ router.post("/create_process", upload.single("image"), function (req, res) {
   );
   res.redirect("/");
 });
+//Update
+router.get("/update/:id", function (req, res) {
+  Drama.findOne({ _id: req.params.id }, function (err, drama) {
+    if (err) return res.json(err);
+    res.render("update", { drama: drama });
+  });
+});
+
+router.put("/:id", function (req, res) {
+  Drama.findOneAndUpdate({ _id: req.params.id }, req.body, function (err, drama) {
+    if (err) return res.json(err);
+    res.redirect("/drama/" + req.params.id);
+  });
+});
 
 // Delete
 router.post("/delete_process", function (req, res) {

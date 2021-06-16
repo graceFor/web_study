@@ -7,6 +7,7 @@
     <a href="/">Home</a>
     <div>
       <h1><%=drama.title %></h1>
+      <a href="/drama/update/<%=drama._id %>" style="float:center-left; margin-top: 30px; margin-left: 30px;text-decoration: none;">update</a>
       <form action="/drama/delete_process" method="post" style="float:center-left; margin: 30px; margin-left: 30px; ">
         <input type="hidden" name="imagePath" value="<%= drama.imagePath %>">
         <input type="hidden" name="_id" value="<%= drama._id %>">
