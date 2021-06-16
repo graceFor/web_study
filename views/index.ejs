@@ -5,13 +5,19 @@
   </head>
   <body>
     <%- include('./patials/nav.ejs') %> 
+    <div class= "box-wrap">
     <% if (drama !== null){
       for(var i = 0; i < drama.length; i++) { %>
+        <div>
         <ul>
-          <img src="<%=drama[i].imagePath %>" alt="이미지" width="300" />
-          <a href="/drama/<%= drama[i]._id%>"> <h3><%= i+1 %> - <%=drama[i].title%></h3></a>
+          <button type="button" onclick="location.href='/drama/<%= drama[i]._id%>'" style="background-color: transparent; border: 0; outline: 0"><img src="<%=drama[i].imagePath %>" style="
+            height: 200;
+            width: 300;
+            margin-top:10px;"/></button>
+          <a href="/drama/<%= drama[i]._id%>" style="color:black; font-size:medium; text-decoration: none;"><h3> <%=drama[i].title%></h3></a>
           
-      </ul><%}} %>
-   
+      </ul>
+    </div><%}} %>
+  </div>
   </body>
 </html>

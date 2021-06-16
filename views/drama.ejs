@@ -1,10 +1,22 @@
 <html>
   <head>
-  <title><%= title %></title>
+    <%- include('./patials/head.ejs') %> 
     <link rel="stylesheet"  href="/stylesheets/style.css">
   </head>
   <body>
-    <h1><%= title %></h1>
+    <a href="/">Home</a>
+    <div>
+      <h1><%=drama.title %></h1>
+      <form action="/drama/delete_process" method="post">
+        <input type="hidden" name="imagePath" value="<%= drama.imagePath %>">
+        <input type="hidden" name="_id" value="<%= drama._id %>">
+        <input type="submit" value="delete">
+      </form>
+  
+    </div>
    
+    <p><img src="<%=drama.imagePath %>" style="width:60%; display:center; margin-top:10px;"/></p>
+    
+    <p style="font-size: 17px;"><%= drama.description %></p>
   </body>
 </html>

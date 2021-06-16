@@ -2,7 +2,10 @@ var express = require("express");
 var router = express.Router();
 var multer = require("multer");
 var Drama = require("../models/drama");
+var fs = require("fs");
+var methodOverride = require("method-override");
 
+router.use(methodOverride("_method"));
 const path = require("path");
 
 var storage = multer.diskStorage({
@@ -39,12 +42,23 @@ router.post("/create_process", upload.single("image"), function (req, res) {
   );
   res.redirect("/");
 });
-// Update
-router.get("/update/:id", function (req, res) {});
-router.post("/update_process", function (req, res) {});
-// Delete
-router.get("delete_process", function (req, res) {});
 
-router.get("/:id", function (req, res) {});
+// Delete
+router.post("/delete_process", function (req, res) {
+  console.log(req.body._id);
+
+  fs.unlink(`./public/${req.body.imagePath}`, function (error) {});
+  Drama.deleteOne({ _id: req.body._id }, function (err, drama) {
+    if (err) return res.json(err);
+    res.redirect("/");
+  });
+});
+
+router.get("/:id", function (req, res) {
+  Drama.findOne({ _id: req.params.id }, function (err, drama) {
+    console.log("1" + drama);
+    res.render("drama", { drama: drama });
+  });
+});
 
 module.exports = router;

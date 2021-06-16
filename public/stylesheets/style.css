@@ -4,5 +4,17 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+.box-wrap {
+  display: flex;
+  flex-flow: row wrap;
+}
+div {
+  display: flex;
+  flex-flow: row wrap;
+
+  margin: 20px;
+  vertical-align: middle;
+  text-align: center;
 }
