@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <%- include('./patials/head.ejs') %> 
+    <link rel="stylesheet"  href="/stylesheets/style.css">
+  </head>
+  <body>
+    <%- include('./patials/nav.ejs') %> 
+    <% if (drama !== null){
+      for(var i = 0; i < drama.length; i++) { %>
+          <a href="/drama/<%= drama[i]._id%>"><h3><%= i+1 %> - <%=drama[i].title%></h3></a>
+  <%  }} %>
+   
+  </body>
+</html>

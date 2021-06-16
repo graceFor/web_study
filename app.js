@@ -13,6 +13,7 @@ var dramaRouter = require("./routes/drama");
 
 var app = express();
 // CONNECT TO MONGODB SERVER
+
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("success connected to mongodb"))
@@ -23,7 +24,7 @@ app.use(bodyParser.json());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+app.set("view engine", "ejs");
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -49,7 +50,10 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render("error", {
+    message: err.message,
+    error: err,
+  });
 });
 
 //  success connection
