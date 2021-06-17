@@ -7,7 +7,7 @@
 
 ```shell
 npm install
-npm start
+node main.js
 ```
 
 ## Environment files
