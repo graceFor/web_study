@@ -7,14 +7,14 @@
 
 ```shell
 npm install
-node main.js
+npm start
 ```
 
 ## Environment files
 
 ### .env
 
-- PORT (optional): port number of GraphQL Server / Playground
+- PORT (optional): port number of Playground
 - MongoDB URI(required): MongoDB connection URI used to connect to a MongoDB deployment
 
 #### Example .env file
