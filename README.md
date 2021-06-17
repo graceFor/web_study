@@ -14,7 +14,7 @@ npm start
 
 ### .env
 
-- PORT (optional): port number of Playground
+- PORT (optional): port number of local server
 - MongoDB URI(required): MongoDB connection URI used to connect to a MongoDB deployment
 
 #### Example .env file
