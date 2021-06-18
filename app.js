@@ -6,7 +6,7 @@ var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
-const { PORT, MONGO_URI } = process.env;
+const { MONGO_URI } = process.env;
 
 var indexRouter = require("./routes/index");
 var dramaRouter = require("./routes/drama");
