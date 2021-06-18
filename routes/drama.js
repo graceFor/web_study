@@ -4,9 +4,9 @@ const multer = require("multer");
 const Drama = require("../models/drama");
 const fs = require("fs");
 const methodOverride = require("method-override");
+const path = require("path");
 
 router.use(methodOverride("_method"));
-const path = require("path");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

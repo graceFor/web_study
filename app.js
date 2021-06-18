@@ -6,14 +6,13 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-const { MONGO_URI } = process.env;
-
 const indexRouter = require("./routes/index");
 const dramaRouter = require("./routes/drama");
 
 const app = express();
-// CONNECT TO MONGODB SERVER
 
+// CONNECT TO MONGODB SERVER
+const { MONGO_URI } = process.env;
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("success connected to mongodb"))
