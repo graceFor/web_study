@@ -1,17 +1,17 @@
-var createError = require("http-errors");
+const createError = require("http-errors");
 require("dotenv").config();
-var express = require("express");
-var path = require("path");
-var bodyParser = require("body-parser");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const mongoose = require("mongoose");
 const { MONGO_URI } = process.env;
 
-var indexRouter = require("./routes/index");
-var dramaRouter = require("./routes/drama");
+const indexRouter = require("./routes/index");
+const dramaRouter = require("./routes/drama");
 
-var app = express();
+const app = express();
 // CONNECT TO MONGODB SERVER
 
 mongoose

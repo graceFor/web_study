@@ -1,14 +1,14 @@
-var express = require("express");
-var router = express.Router();
-var multer = require("multer");
-var Drama = require("../models/drama");
-var fs = require("fs");
-var methodOverride = require("method-override");
+const express = require("express");
+const router = express.Router();
+const multer = require("multer");
+const Drama = require("../models/drama");
+const fs = require("fs");
+const methodOverride = require("method-override");
 
 router.use(methodOverride("_method"));
 const path = require("path");
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./public/images/");
   },
@@ -18,7 +18,7 @@ var storage = multer.diskStorage({
   },
 });
 
-var upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
 /* GET users listing. */
 

@@ -1,6 +1,6 @@
-var express = require("express");
-var Drama = require("../models/drama");
-var router = express.Router();
+const express = require("express");
+const Drama = require("../models/drama");
+const router = express.Router();
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
