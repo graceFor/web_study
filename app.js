@@ -8,7 +8,6 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const indexRouter = require("./routes/index");
 const dramaRouter = require("./routes/drama");
-
 const app = express();
 
 // CONNECT TO MONGODB SERVER
