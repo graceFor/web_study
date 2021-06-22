@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 function App() {
+  const name = "리액트";
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {/* 다은 이렇게 작성합니다. */}
+      <div
+        className="react" // 사작 태그를 여러 쿨로 작성하게 된다면 여기에 주석을 작성할 수 었습니다.
+      >
+        {name}
+      </div>
+
+      <input />
+    </>
   );
 }
 
