@@ -1,11 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
 import MyComponent from "./MyComponent";
 
-class App extends Component {
-  render() {
-    return <MyComponent />;
-  }
-}
+const App = () => {
+  return (
+    <MyComponent nane="React" favoriteNumber={1}>
+      리액트
+    </MyComponent>
+  );
+};
 
 export default App;
