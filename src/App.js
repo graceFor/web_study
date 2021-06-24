@@ -1,6 +1,6 @@
 import React from "react";
 
-import EventPractice from "./EventPractice";
+import EventPractice from "./ EventPractice";
 
 const App = () => {
   return <EventPractice />;
