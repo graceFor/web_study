@@ -4,10 +4,15 @@
     - 렌더링 직후 작업을 설정하는 useEffect 등의 기능 제공
     
     ![hooks](./public/hooks.png)
-   
+    - [x] useState
+    - [x] useEffect
+    - [x] useReducer
+    - [x] useMemo
+    - [x] useCallback
+    - [x] useRef
+    - [x] Customized Hooks
 
     
-
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
