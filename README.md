@@ -2,6 +2,7 @@
 - Hooks
     - 리액트 V16.8에 새로 도입된 기능
     - 렌더링 직후 작업을 설정하는 useEffect 등의 기능 제공
+    - (https://user-images.githubusercontent.com/64152530/124167276-d40abb00-dade-11eb-9008-89aac779fe20.png)
     
 
 ## Getting Started with Create React App
