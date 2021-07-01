@@ -5,6 +5,7 @@
     <br>
     <img src="./public/styling.png" width="50%" align="center" >
     <br>
+    
     - [x] 일반 CSS
     - [x] Sass
     - [x] CSS Module
