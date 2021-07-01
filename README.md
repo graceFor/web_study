@@ -3,7 +3,10 @@
     - 리액트 V16.8에 새로 도입된 기능
     - 렌더링 직후 작업을 설정하는 useEffect 등의 기능 제공
     
-    ![hooks](./public/hooks.png)
+     <br>
+    <img src="./public/hooks.png" width="50%" align="center" >
+    <br><br>
+    
     - [x] useState
     - [x] useEffect
     - [x] useReducer
