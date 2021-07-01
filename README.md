@@ -1,7 +1,8 @@
 # styling_react_tutorials
 - Component Styling
     - 리액트에서는 여러 가지 방식으로 컴포넌트를 스타일링 할 수 있습니다.
-    <img src="./public/styling.png" width="200" >
+    
+    <img src="./public/styling.png" width="50%" align="center" >
     
     - [x] 일반 CSS
     - [x] Sass
