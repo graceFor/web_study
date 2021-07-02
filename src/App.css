@@ -2,7 +2,8 @@
   text-align: center;
 }
 
-.App-logo {
+/*.App 안에 들어있는 .logo*/
+.App .logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -13,7 +14,9 @@
   }
 }
 
-.App-header {
+/*.App 안에 돌어 었는 header
+header 클래스가 아닌 header 태그 자체에 스타일을 적용하기 때운에 .이 생락*/
+.App header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -24,7 +27,8 @@
   color: white;
 }
 
-.App-link {
+/*.App 안에 들어 있는 a 태그*/
+.App a {
   color: #61dafb;
 }
 
