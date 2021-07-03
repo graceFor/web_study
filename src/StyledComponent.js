@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 const sizes = { desktop: 1024, tablet: 768 };
 
-// 위에 었는 size 객체에 따라 자동으로 media 쿼리 함수를 만들어 줌
+// 위에 었는 size 객체에 따라 자동으로 media 쿼리함수를 만들어 줌
 // 참고 : https://www.styled-components.com/docs/advanced#media-templates
 
 const media = Object.keys(sizes).reduce((acc, label) => {
