@@ -2,7 +2,6 @@
 
 - 일정 관리 애플리케이션
 
-  - 리액트에서는 여러 가지 방식으로 컴포넌트를 스타일링 할 수 있습니다.
     <br>
     <img src="./public/todo.png" width="50%" align="center" >
     <br><br>
