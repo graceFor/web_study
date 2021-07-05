@@ -7,7 +7,15 @@
     <br><br>
 
   - [x] UI 구성
+    - TodoTemplate
+    - TodoInsert
+    - TodoList
+    - TodoListItem
   - [x] 기능 구현
+    - 기존 todolist 보여주기 기능
+    - 새로운 todo 추가 기능
+    - 지우기 기능
+    - 수정 기능
 
 ## Available Scripts
 
