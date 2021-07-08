@@ -1,4 +1,6 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+import WithRouterSample from "./WithRouterSample";
 
 const data = {
   velopert: {
@@ -26,8 +28,9 @@ const Profile = ({ match }) => {
         {username}({profile.name})
       </h3>
       <p>{profile.description}</p>
+      <WithRouterSample />
     </div>
   );
 };
 
-export default Profile;
+export default withRouter(Profile);
