@@ -6,8 +6,6 @@
     <img src="./public/router.png" width="50%" align="center" >
     <br><br>
 
-  - [x]
-
 ## Available Scripts
 
 In the project directory, you can run:
