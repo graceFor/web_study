@@ -9,7 +9,7 @@
     <img src="./public/redux.png" width="50%" align="center" >
     <br><br>
 
-  - [x] [UI](./src/components)
+  - [x] [UI](./src/components/)
 
 ## Getting Started with Create React App
 
