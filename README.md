@@ -9,7 +9,7 @@
     <img src="./public/redux.png" width="50%" align="center" >
     <br><br>
 
-  - [x] UI 준비(react-redux-tutorial/src/components)
+  - [x] UI 준비 (./src/components)
 
 ## Getting Started with Create React App
 
