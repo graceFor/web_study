@@ -21,12 +21,12 @@ export const insert = (text) => ({
 });
 
 export const toggle = (id) => ({
-  tyle: TOGGLE,
+  type: TOGGLE,
   id,
 });
 
 export const remove = (id) => ({
-  tyle: REMOVE,
+  type: REMOVE,
   id,
 });
 
