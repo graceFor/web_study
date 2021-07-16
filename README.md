@@ -10,6 +10,8 @@
     <br><br>
 
   - [x] [UI](./src/components/)
+  - [x] [Redux](./src/modules/)
+  - [x] [Container_Component](./src/containers/)
 
 ## Getting Started with Create React App
 
