@@ -1,4 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
+import produce from 'immer';
 
 // 액션 타입 정의하기
 const CHANGE_INPUT = 'todos/CHANGE_INPUT'; // 인풋 값을 변경함
@@ -81,23 +82,31 @@ const initialState = {
 //   }
 // }
 
-const todos = handleActions({
-  [CHANGE_INPUT]: (state, { payload: input }) => ({ ...state, input: input }),
-  [INSERT]: (state, { payload: todo }) => ({
-    ...state,
-    todos: state.todos.concat(todo),
-  }),
-  [TOGGLE]: (state, { payload: id }) => ({
-    ...state,
-    todos: state.todos.map((todo) =>
-      todo.id === id ? { ...todo, done: !todo.done } : todo,
-    ),
-  }),
-  [REMOVE]: (state, { payload: id }) => ({
-    ...state,
-    todos: state.todos.filter((todo) => todo.id !== id),
-  }),
+const todos = handleActions(
+  {
+    [CHANGE_INPUT]: (
+      state,
+      { payload: input }, //{ ...state, input: input }
+    ) =>
+      produce(state, (draft) => {
+        draft.input = input;
+      }),
+    [INSERT]: (state, { payload: todo }) => ({
+      ...state,
+      todos: state.todos.concat(todo),
+    }),
+    [TOGGLE]: (state, { payload: id }) => ({
+      ...state,
+      todos: state.todos.map((todo) =>
+        todo.id === id ? { ...todo, done: !todo.done } : todo,
+      ),
+    }),
+    [REMOVE]: (state, { payload: id }) => ({
+      ...state,
+      todos: state.todos.filter((todo) => todo.id !== id),
+    }),
+  },
   initialState,
-});
+);
 
 export default todos;
