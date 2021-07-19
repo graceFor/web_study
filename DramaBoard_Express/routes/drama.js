@@ -35,10 +35,10 @@ router.post("/create_process", upload.single("image"), function (req, res) {
       title: req.body.title,
       description: req.body.description,
       imagePath: `/images/${req.file.filename}`,
-    },
-    function (err) {
-      return res.json(err);
     }
+    // function (err) {
+    //   return res.json(err);
+    // }
   );
   res.redirect("/");
 });
