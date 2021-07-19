@@ -29,3 +29,5 @@
 ### [vanilla_redux_tutorial](./vanilla_redux_tutorial/)
 
 ### [redux_react_tutorial](./redux_react_tutorial/)
+
+### [redux_middleware_react_tutorial](./redux_middleware_react_tutorial/)
