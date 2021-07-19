@@ -1,0 +1,21 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00b7ff;
+}
+
+.box-wrap {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+div {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 20px;
+  vertical-align: middle;
+  text-align: center;
+}

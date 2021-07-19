@@ -1,0 +1,10 @@
+# .gitignore
+
+# dotenv environment variables file
+.env
+.DS_Store
+.vscode
+
+#folder
+node_modules/
+public/images/
