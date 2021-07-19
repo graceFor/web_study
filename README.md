@@ -28,4 +28,4 @@
 
 ### [vanilla_redux_tutorial](./vanilla_redux_tutorial/)
 
-### [react_redux_tutorial](./react_redux_tutorial/)
+### [react_redux_tutorial](./redux_react_tutorial/)

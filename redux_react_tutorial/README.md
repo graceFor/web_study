@@ -1,4 +1,4 @@
-# react_redux_tutorial
+# redux_react_tutorial
 
 - Redux
 
