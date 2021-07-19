@@ -1,4 +1,4 @@
-# todoapp_react_tutorials
+# todoapp_react_tutorial
 
 - 일정 관리 애플리케이션
 

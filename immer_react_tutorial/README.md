@@ -1,4 +1,4 @@
-# immer_react_tutorials
+# immer_react_tutorial
 
 - Using immer Library
 

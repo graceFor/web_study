@@ -1,4 +1,4 @@
-# router_react_tutorials
+# router_react_tutorial
 
 - 리액트 라우터로 SPA 개발하기
 
