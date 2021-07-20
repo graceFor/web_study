@@ -7,6 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
+    "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/graceFor/Node_js/issues"
   },
-  "homepage": "https://github.com/graceFor/Node_js#readme",
+  "homepage": "https://github.com/graceFor/web_study/tree/main/Node_js#readme",
   "dependencies": {
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
