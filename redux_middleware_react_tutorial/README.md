@@ -10,7 +10,7 @@
     <br><br>
 
   - [x] [UI](./src/components/)
-  - [x] [Redux](./src/modules/)
+  - [x] [Redux modules](./src/modules/)
   - [x] [Container_Component](./src/containers/)
   - [x] [lib] (./src/lib/)
 
