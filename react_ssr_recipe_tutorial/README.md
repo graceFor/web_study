@@ -8,6 +8,9 @@
     <img src="./public/ssr.png" width="50%" align="center" >
     <br><br>
 
+  - [x] [UI](./src/components/)
+  - [x] [Page](./src/pages/)
+
 ## Available Scripts
 
 In the project directory, you can run:
