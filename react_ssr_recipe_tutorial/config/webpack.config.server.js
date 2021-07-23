@@ -17,11 +17,11 @@ module.exports = {
   target: "node", // node 환경에서 실행될 것이라는 점울 명시
   output: {
     path: paths.ssrBuild, // 빌드 경로
-    filename: " server.js", // 파일이름
+    filename: "server.js", // 파일이름
     chunkFilename: "js/[name].chunk.js", // 청크파일이름
     publicPath: paths.publicUrlOrPath, // 정적 파일이 제공될 경로
   },
-  moduel: {
+  module: {
     rules: [
       {
         oneOf: [
@@ -115,7 +115,7 @@ module.exports = {
           // file-loader를 사용
           {
             loader: require.resolve("file-loader"),
-            exclude: [/\.(js|mjsljsx|ts|tsx)$/, /\.html$/, /\.json$/],
+            exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
             options: {
               emitFile: false, // 파일을 따로 저장하지 않는 읍션
               name: "static/media/[name].[hash:8].[ext]",
@@ -129,5 +129,5 @@ module.exports = {
     modules: ["node_modules"],
   },
   externals: [nodeExternals()],
-  plugins: [new webpack.DefinePlugin(env.stringified())], // 환경변수를 주입
+  plugins: [new webpack.DefinePlugin(env.stringified)], // 환경변수를 주입
 };
