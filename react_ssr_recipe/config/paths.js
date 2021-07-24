@@ -54,7 +54,7 @@ const resolveModule = (resolveFn, filePath) => {
 module.exports = {
   dotenv: resolveApp(".env"),
   appPath: resolveApp("."),
-  appBuild: resolveApp("build"),
+  appBuild: resolveApp(buildPath),
   appPublic: resolveApp("public"),
   appHtml: resolveApp("public/index.html"),
   appIndexJs: resolveModule(resolveApp, "src/index"),
@@ -66,9 +66,9 @@ module.exports = {
   testsSetup: resolveModule(resolveApp, "src/setupTests"),
   proxySetup: resolveApp("src/setupProxy.js"),
   appNodeModules: resolveApp("node_modules"),
-  swSrc: resolveModule(resolveApp, "src/service-worker"),
   ssrIndexJs: resolveApp("src/index.server.js"), // 서버 사이드 랜더링 엔트리
   ssrBuild: resolveApp("dist"), // 웹팩 처리 후 저장 경로
+  swSrc: resolveModule(resolveApp, "src/service-worker"),
   publicUrlOrPath,
 };
 
