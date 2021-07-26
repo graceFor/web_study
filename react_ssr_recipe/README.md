@@ -10,6 +10,10 @@
 
   - [x] [UI](./src/components/)
   - [x] [Page](./src/pages/)
+  - [x] [Container](./src/containers/)
+  - [x] [Component](./src/components/)
+  - [x] [Module](./src/modules/)
+  - [x] [Libarary](./src/lib/)
 
 ## Available Scripts
 
