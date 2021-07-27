@@ -3,7 +3,7 @@ import users, { userSaga } from "./users";
 import { all } from "redux-saga/effects";
 
 export function* rootSaga() {
-  yield all(userSaga());
+  yield all([userSaga()]);
 }
 
 const rootReducer = combineReducers({ users });

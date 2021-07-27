@@ -1,5 +1,5 @@
 import axios from "axios";
-import { call, put, takeEvery } from "redux-saga";
+import { call, put, takeEvery } from "redux-saga/effects";
 
 const GET_USERS_PENDING = "users/GET_USERS_PENDING";
 const GET_USERS_SUCCESS = "users/GET_USERS_SUCCESS";
@@ -81,7 +81,7 @@ function users(state = initialState, action) {
         error: { ...state.error, user: null },
       };
     case GET_USER_SUCCESS:
-      return { ...state, loading: { ...state.loading, user: false }, users: action.payload };
+      return { ...state, loading: { ...state.loading, user: false }, user: action.payload };
     case GET_USER_FAILURE:
       return {
         ...state,
