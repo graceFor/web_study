@@ -10,3 +10,9 @@
   <br>
   <img src="./public/rest.png" width="50%" align="center" >
   <br><br>
+
+- 데이터 베이스 (MongoDB)
+  - mongoose를 이용하여 서버에서 직접 데이터를 추가 • 조회 • 삭제 • 수정
+    <br>
+    <img src="./public/db.png" width="50%" align="center" >
+    <br><br>
