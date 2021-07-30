@@ -1,6 +1,6 @@
 # blog_project
 
-[Backend]
+## Backend
 
 - Node.js의 프레임워크인 Koa.js를 사용
 
