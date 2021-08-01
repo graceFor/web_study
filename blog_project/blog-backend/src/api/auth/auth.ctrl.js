@@ -21,6 +21,25 @@ export const register = async (ctx) => {
     return;
   }
   const { username, password } = ctx.request.body;
+
+  try {
+    // username이 이미 존재하는지 확안
+    const exists = await User.findByUsername(username);
+    if (exists) {
+      ctx.status = 409;
+      return;
+    }
+
+    const user = new User({
+      username,
+    });
+    await user.setPassword(password); //비밀번호 설정
+    await user.save(); // 데이터베이스에 저장
+
+    ctx.body = user.serialize();
+  } catch (error) {
+    ctx.throw(500, error);
+  }
 };
 export const login = async (ctx) => {
   // 로그인
