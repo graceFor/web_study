@@ -4,10 +4,35 @@ import Joi from '@hapi/joi';
 
 const { ObjectId } = mongoose.Types;
 
-export const checkObjectId = (ctx, next) => {
+// 기존 checkObjectId 함수
+export const getPostById = async (ctx, next) => {
   const { id } = ctx.params;
   if (!ObjectId.isValid(id)) {
     ctx.status = 400; // Bad Request
+    return;
+  }
+  try {
+    const post = await Post.findById(id);
+    console.log(`post : ${post}`);
+    // 포스트가 존재하지 않을 때
+    if (!post) {
+      ctx.staus = 404; // Not Found
+      return;
+    }
+    ctx.state.post = post;
+
+    return next();
+  } catch (error) {
+    ctx.throw(500, error);
+  }
+};
+// id로 찾은 포스트가 로그인 중인 사용자가 작성한 포스트인지 확인하는 미들웨어
+export const checkOwnPost = (ctx, next) => {
+  const { user, post } = ctx.state;
+  console.log(`ctx.state.user._id : ${ctx.state.user._id}`);
+  console.log(`ctx.state.post : ${ctx.state.post}`);
+  if (post.user._id.toString() !== user._id) {
+    ctx.status = 403;
     return;
   }
   return next();
@@ -15,7 +40,7 @@ export const checkObjectId = (ctx, next) => {
 
 /* 포스트 작성
 POST /api/posts 
-{ 
+{ x
   title: '제목,
   body: '내용',
   tags:['태그1', '태그2'] 
@@ -42,6 +67,7 @@ export const write = async (ctx) => {
     title,
     body,
     tags,
+    user: ctx.state.user,
   });
   try {
     await post.save();
@@ -52,7 +78,7 @@ export const write = async (ctx) => {
 };
 
 /* 포스트 목록 조회
-GET /api/posts 
+GET /api/posts?username=&tag=&page=
 */
 export const list = async (ctx) => {
   //query는 문자열이기 때운에 숫자로 변환해 주어야 함
@@ -63,14 +89,20 @@ export const list = async (ctx) => {
     ctx.status = 400;
     return;
   }
+  const { tag, username } = ctx.query;
+  // tag, username 값이 유효하면 객체 안에 넣고, 그렇지 않으면 넣지 않옴
+  const query = {
+    ...(username ? { 'user.username': username } : {}),
+    ...(tag ? { tags: tag } : {}),
+  };
   try {
-    const posts = await Post.find()
+    const posts = await Post.find(query)
       .sort({ _id: -1 })
       .limit(10)
       .skip((page - 1) * 10)
       .lean()
       .exec();
-    const postCount = await Post.countDocuments().exec();
+    const postCount = await Post.countDocuments(query).exec();
     ctx.set('Last-Page', Math.ceil(postCount / 10));
     ctx.body = posts
       //   .map((post) => post.toJSON())
@@ -87,17 +119,18 @@ export const list = async (ctx) => {
 GET /api/posts/:id
 */
 export const read = async (ctx) => {
-  const { id } = ctx.params;
-  try {
-    const post = await Post.findById(id).exec();
-    if (!post) {
-      ctx.status = 404; // Not Found
-      return;
-    }
-    ctx.body = post;
-  } catch (error) {
-    ctx.throw(500, error);
-  }
+  // const { id } = ctx.params;
+  // try {
+  //   const post = await Post.findById(id).exec();
+  //   if (!post) {
+  //     ctx.status = 404; // Not Found
+  //     return;
+  //   }
+  //   ctx.body = post;
+  // } catch (error) {
+  //   ctx.throw(500, error);
+  // }
+  ctx.body = ctx.state.post;
 };
 
 /* 특정 포스트 제거
