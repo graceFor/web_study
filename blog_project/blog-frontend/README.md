@@ -3,7 +3,7 @@
 - 리액트를 사용하여 프론트엔드 구성
 
 - [x] [Page](./src/pages/)
-- [x] [API](./src/api/)
+- [x] [Component](./src/components/)
 - [x] [Library](./src/lib/)
 
 ## Available Scripts
