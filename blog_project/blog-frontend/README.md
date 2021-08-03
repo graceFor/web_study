@@ -1,5 +1,11 @@
 # blog_project_frontend
 
+- 리액트를 사용하여 프론트엔드 구성
+
+- [x] [Page](./src/pages/)
+- [x] [API](./src/api/)
+- [x] [Library](./src/lib/)
+
 ## Available Scripts
 
 In the project directory, you can run:
