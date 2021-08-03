@@ -1,5 +1,12 @@
 # blog_project
 
+## Frontend
+
+- 리액트를 사용
+  <br>
+  <img src="./public/front.png" width="50%" align="center" >
+  <br><br>
+
 ## Backend
 
 - Node.js의 프레임워크인 Koa.js를 사용

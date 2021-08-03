@@ -6,6 +6,7 @@
 
 - [x] [MODEL](./src/models/)
 - [x] [API](./src/api/)
+- [x] [Library](./src/lib/)
 
 ### .env
 
@@ -26,3 +27,11 @@ JWT_SECRET=33e86ac48e993d06bb3afd382863457e6bca79daf983ec4ba783e75999b1f4a000e68
 - Normal users
 
 ### Normal users
+
+- [x] Register
+- [x] Login
+- [x] Logout
+- [x] See Post info
+- [x] Create Post info
+- [x] Update Post info
+- [x] Delete Post info
