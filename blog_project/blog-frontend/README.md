@@ -5,6 +5,7 @@
 - [x] [Page](./src/pages/)
 - [x] [Component](./src/components/)
 - [x] [Library](./src/lib/)
+- [x] [Module](./src/modules/)
 
 ## Available Scripts
 
